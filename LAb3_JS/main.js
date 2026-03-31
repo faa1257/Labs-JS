@@ -28,36 +28,22 @@ const transactions = [
     card_type: "credit"
   }
 ];
- 
- 
-/**
- * Возвращает массив уникальных типов транзакций.
- * @param {Object[]} transactions - массив транзакций
- * @returns {string[]} массив уникальных типов (debit, credit)
- */
+
+
+// Возвращает массив уникальных типов транзакций
 function getUniqueTransactionTypes(transactions) {
   return [...new Set(transactions.map(t => t.transaction_type))];
 }
- 
- 
-/**
- * Вычисляет общую сумму всех транзакций.
- * @param {Object[]} transactions - массив транзакций
- * @returns {number} общая сумма транзакций
- */
+
+
+// Вычисляет общую сумму всех транзакций
 function calculateTotalAmount(transactions) {
   return transactions.reduce((sum, t) => sum + t.transaction_amount, 0);
 }
- 
- 
-/**
- * Вычисляет общую сумму транзакций за указанную дату.
- * @param {Object[]} transactions - массив транзакций
- * @param {number} [year] - год (необязательно)
- * @param {number} [month] - месяц (необязательно)
- * @param {number} [day] - день (необязательно)
- * @returns {number} сумма транзакций за указанную дату
- */
+
+
+// Вычисляет общую сумму транзакций за указанный год, месяц и/или день
+// Параметры year, month, day - необязательны
 function calculateTotalAmountByDate(transactions, year, month, day) {
   return transactions
     .filter(t => {
@@ -68,26 +54,15 @@ function calculateTotalAmountByDate(transactions, year, month, day) {
     })
     .reduce((sum, t) => sum + t.transaction_amount, 0);
 }
- 
- 
-/**
- * Возвращает транзакции указанного типа.
- * @param {Object[]} transactions - массив транзакций
- * @param {string} type - тип транзакции (debit или credit)
- * @returns {Object[]} отфильтрованный массив транзакций
- */
+
+
+// Возвращает транзакции указанного типа (debit или credit)
 function getTransactionByType(transactions, type) {
   return transactions.filter(t => t.transaction_type === type);
 }
- 
- 
-/**
- * Возвращает транзакции в диапазоне дат.
- * @param {Object[]} transactions - массив транзакций
- * @param {string} startDate - начальная дата (YYYY-MM-DD)
- * @param {string} endDate - конечная дата (YYYY-MM-DD)
- * @returns {Object[]} транзакции в диапазоне дат
- */
+
+
+// Возвращает транзакции в диапазоне дат (startDate и endDate включительно)
 function getTransactionsInDateRange(transactions, startDate, endDate) {
   return transactions.filter(t => {
     const date = new Date(t.transaction_date);
@@ -95,87 +70,62 @@ function getTransactionsInDateRange(transactions, startDate, endDate) {
            date <= new Date(endDate);
   });
 }
- 
- 
-/**
- * Возвращает транзакции по названию магазина.
- * @param {Object[]} transactions - массив транзакций
- * @param {string} merchantName - название магазина
- * @returns {Object[]} транзакции указанного магазина
- */
+
+
+// Возвращает транзакции по названию магазина
 function getTransactionsByMerchant(transactions, merchantName) {
   return transactions.filter(t =>
     t.merchant_name === merchantName
   );
 }
- 
- 
-/**
- * Вычисляет среднюю сумму транзакций.
- * @param {Object[]} transactions - массив транзакций
- * @returns {number} средняя сумма или 0 если массив пустой
- */
+
+
+// Вычисляет среднюю сумму транзакций, возвращает 0 если массив пустой
 function calculateAverageTransactionAmount(transactions) {
   if (transactions.length === 0) return 0;
   return calculateTotalAmount(transactions) / transactions.length;
 }
- 
- 
-/**
- * Возвращает транзакции в диапазоне сумм.
- * @param {Object[]} transactions - массив транзакций
- * @param {number} minAmount - минимальная сумма
- * @param {number} maxAmount - максимальная сумма
- * @returns {Object[]} транзакции в диапазоне сумм
- */
+
+
+// Возвращает транзакции с суммой в диапазоне от minAmount до maxAmount
 function getTransactionsByAmountRange(transactions, minAmount, maxAmount) {
   return transactions.filter(t =>
     t.transaction_amount >= minAmount &&
     t.transaction_amount <= maxAmount
   );
 }
- 
- 
-/**
- * Вычисляет общую сумму дебетовых транзакций.
- * @param {Object[]} transactions - массив транзакций
- * @returns {number} сумма всех debit транзакций
- */
+
+
+// Вычисляет общую сумму дебетовых транзакций
 function calculateTotalDebitAmount(transactions) {
   return transactions
     .filter(t => t.transaction_type === "debit")
     .reduce((sum, t) => sum + t.transaction_amount, 0);
 }
- 
- 
-/**
- * Возвращает месяц с наибольшим количеством транзакций.
- * @param {Object[]} transactions - массив транзакций
- * @returns {string|null} номер месяца или null если массив пустой
- */
+
+
+// Возвращает номер месяца с наибольшим количеством транзакций
+// Возвращает null если массив пустой
 function findMostTransactionsMonth(transactions) {
   if (transactions.length === 0) return null;
- 
+
   const count = {};
   transactions.forEach(t => {
     const month = new Date(t.transaction_date).getMonth() + 1;
     count[month] = (count[month] || 0) + 1;
   });
- 
+
   return Object.keys(count).reduce((a, b) =>
     count[a] > count[b] ? a : b
   );
 }
- 
- 
-/**
- * Возвращает месяц с наибольшим количеством debit транзакций.
- * @param {Object[]} transactions - массив транзакций
- * @returns {string|null} номер месяца или null если массив пустой
- */
+
+
+// Возвращает номер месяца с наибольшим количеством debit транзакций
+// Возвращает null если массив пустой
 function findMostDebitTransactionMonth(transactions) {
   if (transactions.length === 0) return null;
- 
+
   const count = {};
   transactions
     .filter(t => t.transaction_type === "debit")
@@ -183,64 +133,45 @@ function findMostDebitTransactionMonth(transactions) {
       const month = new Date(t.transaction_date).getMonth() + 1;
       count[month] = (count[month] || 0) + 1;
     });
- 
+
   return Object.keys(count).reduce((a, b) =>
     count[a] > count[b] ? a : b
   );
 }
- 
- 
-/**
- * Определяет преобладающий тип транзакций.
- * @param {Object[]} transactions - массив транзакций
- * @returns {string} "debit", "credit" или "equal"
- */
+
+
+// Возвращает "debit", "credit" или "equal" в зависимости от преобладающего типа
 function mostTransactionTypes(transactions) {
   const debit = transactions.filter(t => t.transaction_type === "debit").length;
   const credit = transactions.filter(t => t.transaction_type === "credit").length;
- 
+
   if (debit > credit) return "debit";
   if (credit > debit) return "credit";
   return "equal";
 }
- 
- 
-/**
- * Возвращает транзакции до указанной даты.
- * @param {Object[]} transactions - массив транзакций
- * @param {string} date - дата в формате YYYY-MM-DD
- * @returns {Object[]} транзакции до указанной даты
- */
+
+
+// Возвращает транзакции совершённые до указанной даты
 function getTransactionsBeforeDate(transactions, date) {
   return transactions.filter(t =>
     new Date(t.transaction_date) < new Date(date)
   );
 }
- 
- 
-/**
- * Находит транзакцию по ID.
- * @param {Object[]} transactions - массив транзакций
- * @param {number} id - уникальный идентификатор транзакции
- * @returns {Object|undefined} транзакция или undefined если не найдена
- */
+
+
+// Находит и возвращает транзакцию по её ID, или undefined если не найдена
 function findTransactionById(transactions, id) {
   return transactions.find(t => t.transaction_id === id);
 }
- 
- 
-/**
- * Возвращает массив описаний всех транзакций.
- * @param {Object[]} transactions - массив транзакций
- * @returns {string[]} массив описаний транзакций
- */
+
+
+// Возвращает массив только из описаний транзакций
 function mapTransactionDescriptions(transactions) {
   return transactions.map(t => t.transaction_description);
 }
- 
- 
+
+
 // Тестирование
- 
 console.log("Unique types:", getUniqueTransactionTypes(transactions));
 console.log("Total amount:", calculateTotalAmount(transactions));
 console.log("Average:", calculateAverageTransactionAmount(transactions));
