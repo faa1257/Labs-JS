@@ -78,22 +78,23 @@ function calculateTotalAmountByDate(transactions, year, month, day) {
     .reduce((sum, t) => sum + t.transaction_amount, 0);
 }//Результат для февраля 2024: 2300 (2000 + 300)
 
-// 4 Функция возвращает только те транзакции, тип которых совпадает с переданным параметром type. Метод filter() проходит по массиву и оставляет только элементы где transaction_type === type.
+// 4 Функция Проходит по каждой транзакции и проверяет поле transaction_type. Если совпадает с тем что передал — оставляет, если нет — выбрасывает
 function getTransactionByType(transactions, type) {
   return transactions.filter(t => t.transaction_type === type);
 }//Результат для "debit": транзакции с id 1 и 3
 
-// 5 Функция возвращает транзакции, дата которых попадает в диапазон от startDate до endDate включительно. Строки дат преобразуются в объекты Date для корректного сравнения через операторы >= и <=.
+// 5 Функция Берёт дату каждой транзакции и проверяет что она не раньше startDate и не позже endDate. Обе даты переводятся в объекты Date чтобы корректно сравнивать
 javascript
 function getTransactionsInDateRange(transactions, startDate, endDate) {
   return transactions.filter(t => {
     const date = new Date(t.transaction_date);
     return date >= new Date(startDate) && date <= new Date(endDate);
   });
+  console.log("Date range:", getTransactionsInDateRange(transactions, "2024-02-01", "2024-02-28"));
 }//Результат для февраля 2024: транзакции с id 2 и 3
 
 // 6 getTransactionsByMerchant
-//Функция возвращает все транзакции указанного магазина. Метод filter() сравнивает поле merchant_name каждой транзакции с переданным параметром.
+//Функция Проходит по каждой транзакции и сравнивает поле merchant_name с тем что передал.
 
 function getTransactionsByMerchant(transactions, merchantName) {
   return transactions.filter(t => t.merchant_name === merchantName);

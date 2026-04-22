@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Финансовый учёт</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <h1>💰 Личный финансовый учёт</h1>
+
+  <!-- ФОРМА ДОБАВЛЕНИЯ -->
+  <div class="form-container">
+    <h2>Добавить транзакцию</h2>
+
+    <input type="number" id="amount" placeholder="Сумма (+ доход, - расход)" />
+    
+<select id="category">
+  <option value="">-- Выберите категорию --</option>
+  <option value="Зарплата"> Зарплата</option>
+  <option value="Подработка"> Подработка</option>
+  <option value="Еда"> Еда</option>
+  <option value="Сигареты"> Сигареты</option>
+  <option value="Энергетики"> Энергетики</option>
+  <option value="Кофе"> Кофе</option>
+  <option value="Такси"> Такси</option>
+  <option value="Игры"> Игры</option>
+  <option value="Компьютер"> Компьютер</option>
+  <option value="Одежда"> Одежда</option>
+  <option value="Тусовки"> Тусовки</option>
+  <option value="Подписки"> Подписки (Netflix и тд)</option>
+  <option value="Долг"> Отдал долг</option>
+  <option value="Другое"> Другое</option>
+</select>
+
+    <input type="text" id="description" placeholder="Описание транзакции" />
+    
+    <button id="addBtn">Добавить</button>
+    <p id="formError" class="error"></p>
+  </div>
+
+  <!-- ИТОГ -->
+  <div class="total-container">
+    <h2>Итого: <span id="total">0</span> руб.</h2>
+  </div>
+
+  <!-- ТАБЛИЦА -->
+  <table id="transactionTable">
+    <thead>
+      <tr>
+        <th>Дата и время</th>
+        <th>Категория</th>
+        <th>Описание</th>
+        <th>Сумма</th>
+        <th>Действие</th>
+      </tr>
+    </thead>
+    <tbody id="tableBody">
+      <!-- строки добавляются через JS -->
+    </tbody>
+  </table>
+
+  <!-- ПОЛНОЕ ОПИСАНИЕ -->
+  <div id="details" class="details-container">
+    <p>Нажмите на строку таблицы, чтобы увидеть полное описание</p>
+  </div>
+
+  <script type="module" src="src/index.js"></script>
+</body>
+</html>
