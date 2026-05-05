@@ -56,6 +56,11 @@ document.getElementById('transactionTable').addEventListener('click', (e) => {
     removeTransaction(id);
     e.target.closest('tr').remove();
     updateTotal();
+     if (transactions.length === 0) {
+      document.getElementById('details').innerHTML = 
+        '<p>Нажмите на строку таблицы, чтобы увидеть полное описание</p>';
+    }
+    
     return;
   }
 
@@ -66,3 +71,8 @@ document.getElementById('transactionTable').addEventListener('click', (e) => {
     if (transaction) showDetails(transaction);
   }
 });
+// Загружаем сохранённые транзакции при старте
+transactions.forEach(t => {
+  renderTransaction(t);
+});
+updateTotal();

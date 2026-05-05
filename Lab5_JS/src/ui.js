@@ -10,7 +10,7 @@ export function renderTransaction(transaction) {
   const row = document.createElement('tr');
 
   // Зелёная строка если доход, красная если расход
-  row.classList.add(transaction.amount >= 0 ? 'positive' : 'negative');
+  row.classList.add(transaction.amount > 0 ? 'positive' : 'negative');
   row.dataset.id = transaction.id;
 
   row.innerHTML = `
@@ -39,9 +39,9 @@ export function showDetails(transaction) {
   const details = document.getElementById('details');
   details.innerHTML = `
     <strong>Полное описание:</strong><br/>
-    📅 Дата: ${transaction.date}<br/>
-    🏷 Категория: ${transaction.category}<br/>
-    💬 Описание: ${transaction.description}<br/>
-    💰 Сумма: ${transaction.amount} руб.
+     Дата: ${transaction.date}<br/>
+     Категория: ${transaction.category}<br/>
+     Описание: ${transaction.description}<br/>
+     Сумма: ${transaction.amount} руб.
   `;
 }

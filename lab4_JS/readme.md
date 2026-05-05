@@ -16,7 +16,7 @@
 - name — название  
 - weight — вес  
 - rarity — редкость  
-
+ 
 Оружие дополнительно содержит:
 - damage — урон  
 - durability — прочность  
@@ -34,7 +34,7 @@
  * Класс предмета
  */
 class Item {
-  /**
+  /**основные свойства.
    * @param {string} name - название предмета
    * @param {number} weight - вес
    * @param {string} rarity - редкость
@@ -80,13 +80,13 @@ class Weapon extends Item {
    * @param {number} durability
    */
   constructor(name, weight, rarity, damage, durability) {
-    super(name, weight, rarity);
+    super(name, weight, rarity);//Используется для вызова конструктора родителя
     this.damage = damage;
     this.durability = durability;
   }
 
   /**
-   * Использует оружие (уменьшает прочность)
+   *уменьшает прочность оружия при ипользовании
    */
   use() {
     if (this.durability > 0) {
@@ -169,20 +169,19 @@ ItemFunc.prototype.getInfo = function () {
 ItemFunc.prototype.setWeight = function (newWeight) {
   this.weight = newWeight;
 };
-// Аналог класса, но реализован через функцию и prototype.
-
+//Методы добавляются через prototype, чтобы они были общими для всех объектов.
 
 // ==========================
 // 6 КОНСТРУКТОР Weapon
 // ==========================
-
+// Конструктор оружия (наследуется от ItemFunc)
 function WeaponFunc(name, weight, rarity, damage, durability) {
-  ItemFunc.call(this, name, weight, rarity);
+  ItemFunc.call(this, name, weight, rarity); // вызываем родителя
   this.damage = damage;
   this.durability = durability;
 }
 
-// наследование
+// Настройка наследования через prototype
 WeaponFunc.prototype = Object.create(ItemFunc.prototype);
 WeaponFunc.prototype.constructor = WeaponFunc;
 
@@ -209,22 +208,22 @@ WeaponFunc.prototype.repair = function () {
 WeaponFunc.prototype.getInfo = function () {
   return `${ItemFunc.prototype.getInfo.call(this)}, Damage: ${this.damage}, Durability: ${this.durability}`;
 };
-// Здесь реализовано наследование через prototype и вызов родительского конструктора.
+// вызываем метод родителя + добавляем свои поля
 
 
 // ==========================
 // 7 ТЕСТ КОНСТРУКТОРОВ
 // ==========================
-
+// создаём объект оружия
 const axe = new WeaponFunc("Axe", 5, "common", 20, 80);
 
 console.log(axe.getInfo());
 
 axe.use();
-console.log("After use:", axe.durability);
+console.log("After use:", axe.durability);  // прочность уменьшилась
 
 axe.repair();
-console.log("After repair:", axe.durability);
+console.log("After repair:", axe.durability);  // прочность восстановилась
 // Проверка работы функций-конструкторов.
 
 ---

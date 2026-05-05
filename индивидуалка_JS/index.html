@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Планировщик</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+
+<h1>Планировщик событий</h1>
+
+<form id="event-form">
+  <input type="text" id="title" placeholder="Название" required>
+  <input type="date" id="date" required>
+
+  <select id="category">
+    <option value="Учёба">Учёба</option>
+    <option value="Работа">Работа</option>
+    <option value="Личное">Личное</option>
+  </select>
+
+  <button>Добавить</button>
+</form>
+
+<div class="filters">
+  <input type="date" id="filter-date">
+  
+  <select id="filter-category">
+    <option value="all">Все категории</option>
+    <option value="Учёба">Учёба</option>
+    <option value="Работа">Работа</option>
+    <option value="Личное">Личное</option>
+  </select>
+</div>
+
+<ul id="list"></ul>
+
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>

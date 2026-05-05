@@ -9,10 +9,10 @@ lab5/
 ├── index.html
 ├── style.css
 └── src/
-    ├── index.js
-    ├── transactions.js
-    ├── ui.js
-    └── utils.js
+    ├── index.js// всё связывает
+    ├── transactions.js//отвечает за данные и хранение в localStorage
+    ├── ui.js//за отображение на странице
+    └── utils.js//вспомогательные функции.
 ```
 
 ---
