@@ -27,6 +27,16 @@ h1 {
   margin-bottom: 20px;
 }
 
+.edit-hint {
+  background: #eef;
+  border-left: 3px solid #667eea;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 13px;
+  color: #444;
+  margin-bottom: 12px;
+}
+
 form {
   display: flex;
   flex-wrap: wrap;
@@ -55,14 +65,99 @@ button:hover {
   background: #5a67d8;
 }
 
-.filters {
-  display: flex;
-  gap: 10px;
-  margin: 15px 0;
+#cancel-btn {
+  background: #aaa;
 }
 
+#cancel-btn:hover {
+  background: #999;
+}
+
+.filters {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin: 15px 0 10px;
+  align-items: center;
+}
+
+.filters input {
+  flex: 2;
+  min-width: 140px;
+}
+
+.filters button {
+  font-size: 13px;
+  padding: 7px 11px;
+  white-space: nowrap;
+}
+
+/* Multiselect */
+.multiselect {
+  position: relative;
+  flex: 1;
+  min-width: 140px;
+}
+
+.ms-display {
+  padding: 8px 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  cursor: pointer;
+  background: white;
+  font-size: 14px;
+  user-select: none;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ms-dropdown {
+  display: none;
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 6px;
+  z-index: 50;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.ms-dropdown.open {
+  display: block;
+}
+
+.ms-dropdown label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 8px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+.ms-dropdown input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  min-width: 16px;
+  cursor: pointer;
+  margin: 0;
+  flex-shrink: 0;
+}
+
+.ms-dropdown label:hover {
+  background: #f3f3f3;
+}
+
+/* Список событий */
 ul {
   list-style: none;
+  margin-top: 10px;
 }
 
 li {
@@ -102,4 +197,53 @@ li:hover {
 
 .actions button:hover {
   background: #ddd;
+}
+
+/* Модальное окно */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.4);
+  z-index: 100;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-box {
+  background: white;
+  padding: 24px;
+  border-radius: 14px;
+  width: 300px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+}
+
+.modal-box h2 {
+  font-size: 18px;
+  margin-bottom: 14px;
+  text-align: left;
+}
+
+.modal-box label {
+  display: block;
+  font-size: 13px;
+  color: #555;
+  margin-bottom: 4px;
+}
+
+.modal-box input {
+  width: 100%;
+  margin-bottom: 12px;
+  flex: none;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.modal-actions button:first-child {
+  background: #aaa;
 }

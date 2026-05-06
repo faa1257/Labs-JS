@@ -9,34 +9,62 @@
 
 <div class="container">
 
-<h1>Планировщик событий</h1>
+  <h1>Планировщик событий</h1>
 
-<form id="event-form">
-  <input type="text" id="title" placeholder="Название" required>
-  <input type="date" id="date" required>
+  <div id="edit-hint" class="edit-hint" style="display:none;">
+    ✏️ Режим редактирования 
+  </div>
 
-  <select id="category">
-    <option value="Учёба">Учёба</option>
-    <option value="Работа">Работа</option>
-    <option value="Личное">Личное</option>
-  </select>
+  <form id="event-form">
+    <input type="text" id="title" placeholder="Название события" required>
+    <input type="date" id="date" required>
+    <select id="category">
+      <option value="Учёба">Учёба</option>
+      <option value="Работа">Работа</option>
+      <option value="Личное">Личное</option>
+    </select>
+    <button type="button" id="submit-btn" onclick="submitForm()">Добавить</button>
+    <button type="button" id="cancel-btn" onclick="cancelEdit()" style="display:none;">Отмена</button>
+  </form>
 
-  <button>Добавить</button>
-</form>
+  <div class="filters">
+    <input type="text" id="search" placeholder="🔍 Поиск по названию..." oninput="render()">
 
-<div class="filters">
-  <input type="date" id="filter-date">
-  
-  <select id="filter-category">
-    <option value="all">Все категории</option>
-    <option value="Учёба">Учёба</option>
-    <option value="Работа">Работа</option>
-    <option value="Личное">Личное</option>
-  </select>
+    <div class="multiselect" id="ms-wrap">
+      <div class="ms-display" onclick="toggleMs()">
+        <span id="ms-label">Все категории</span> ▾
+      </div>
+      <div class="ms-dropdown" id="ms-dropdown">
+        <label><input type="checkbox" value="Учёба" onchange="updateMsLabel(); render()"> Учёба</label>
+        <label><input type="checkbox" value="Работа" onchange="updateMsLabel(); render()"> Работа</label>
+        <label><input type="checkbox" value="Личное" onchange="updateMsLabel(); render()"> Личное</label>
+      </div>
+    </div>
+
+    <button type="button" onclick="openModal()">📅 Диапазон дат</button>
+    <button type="button" onclick="clearFilters()">Сбросить фильтры</button>
+  </div>
+
+  <div id="range-display" style="display:none; font-size:13px; color:gray; margin-bottom:8px;"></div>
+
+  <ul id="list"></ul>
+  <div id="empty" style="display:none; text-align:center; color:gray; padding:20px;">Событий не найдено</div>
+
 </div>
 
-<ul id="list"></ul>
-
+<!-- Модальное окно диапазона дат -->
+<div id="modal" class="modal-overlay" onclick="handleModalClick(event)">
+  <div class="modal-box">
+    <h2>Диапазон дат</h2>
+    <label>От</label>
+    <input type="date" id="range-from">
+    <label>До</label>
+    <input type="date" id="range-to">
+    <div class="modal-actions">
+      <button type="button" onclick="closeModal()">Отмена</button>
+      <button type="button" onclick="applyRange()">Применить</button>
+    </div>
+  </div>
 </div>
 
 <script src="app.js"></script>
